@@ -314,27 +314,6 @@ public class PaymentSample {
     }
 
     @Test
-    void retrieve_payment_sample() {
-        Long paymentId = 1L;
-
-        PaymentDetailResponse paymentResponse = tokenPay.payment().retrievePayment(paymentId);
-        assertNotNull(paymentResponse);
-        assertEquals(paymentResponse.getId(), paymentId);
-    }
-
-    @Test
-    void search_payment_sample() {
-        SearchPaymentsRequest request = SearchPaymentsRequest.builder()
-                .currency(Currency.TRY)
-                .paymentStatus(PaymentStatus.SUCCESS)
-                .build();
-
-        PaymentDetailListResponse paymentDetailListResponse = tokenPay.payment().searchPayments(request);
-        assertNotNull(paymentDetailListResponse);
-        assertTrue(paymentDetailListResponse.getItems().size() > 0);
-    }
-
-    @Test
     void send_cross_booking_money_sample() {
         CrossBookingRequest request = CrossBookingRequest.builder()
                 .currency(Currency.TRY)

@@ -1,9 +1,6 @@
 package tr.com.tokenpay;
 
-import tr.com.tokenpay.adapter.InstallmentAdapter;
-import tr.com.tokenpay.adapter.OnboardingAdapter;
-import tr.com.tokenpay.adapter.PaymentAdapter;
-import tr.com.tokenpay.adapter.SettlementReportingAdapter;
+import tr.com.tokenpay.adapter.*;
 import tr.com.tokenpay.request.common.RequestOptions;
 
 public class TokenPay {
@@ -14,6 +11,7 @@ public class TokenPay {
     private final SettlementReportingAdapter settlementReportingAdapter;
     private final InstallmentAdapter installmentAdapter;
     private final OnboardingAdapter onboardingAdapter;
+    private final PaymentReportingAdapter paymentReportingAdapter;
 
     public TokenPay(String apiKey, String secretKey) {
         this(apiKey, secretKey, BASE_URL);
@@ -30,6 +28,7 @@ public class TokenPay {
         this.settlementReportingAdapter = new SettlementReportingAdapter(requestOptions);
         this.installmentAdapter = new InstallmentAdapter(requestOptions);
         this.onboardingAdapter = new OnboardingAdapter(requestOptions);
+        this.paymentReportingAdapter = new PaymentReportingAdapter(requestOptions);
     }
 
     public PaymentAdapter payment() {
@@ -46,5 +45,9 @@ public class TokenPay {
 
     public OnboardingAdapter onboarding() {
         return onboardingAdapter;
+    }
+
+    public PaymentReportingAdapter paymentReporting() {
+        return paymentReportingAdapter;
     }
 }
