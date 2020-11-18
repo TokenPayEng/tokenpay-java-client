@@ -1,7 +1,7 @@
 package tr.com.tokenpay.adapter;
 
 import tr.com.tokenpay.net.HttpClient;
-import tr.com.tokenpay.request.SearchInstallmentRequest;
+import tr.com.tokenpay.request.SearchInstallmentsRequest;
 import tr.com.tokenpay.request.common.RequestOptions;
 import tr.com.tokenpay.request.common.RequestQueryParamsBuilder;
 import tr.com.tokenpay.response.BinNumberResponse;
@@ -13,8 +13,8 @@ public class InstallmentAdapter extends BaseAdapter {
         super(requestOptions);
     }
 
-    public InstallmentListResponse searchInstallments(SearchInstallmentRequest searchInstallmentRequest) {
-        String query = RequestQueryParamsBuilder.buildQueryParam(searchInstallmentRequest);
+    public InstallmentListResponse searchInstallments(SearchInstallmentsRequest searchInstallmentsRequest) {
+        String query = RequestQueryParamsBuilder.buildQueryParam(searchInstallmentsRequest);
         String path = "/installment/v1/installments" + query;
 
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), InstallmentListResponse.class);

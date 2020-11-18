@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Data
 @SuperBuilder
-public class SearchInstallmentRequest extends BaseRequest {
+public class SearchInstallmentsRequest extends BaseRequest {
 
     private String binNumber;
     private BigDecimal price;

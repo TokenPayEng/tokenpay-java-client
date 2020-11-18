@@ -1,4 +1,4 @@
-package tr.com.tokenpay.response;
+package tr.com.tokenpay.response.dto;
 
 import lombok.Data;
 import tr.com.tokenpay.model.Currency;
@@ -6,7 +6,7 @@ import tr.com.tokenpay.model.Currency;
 import java.math.BigDecimal;
 
 @Data
-public class PayoutCompletedTransactionResponse {
+public class PayoutCompletedTransaction {
 
     private Long transactionId;
     private String transactionType;

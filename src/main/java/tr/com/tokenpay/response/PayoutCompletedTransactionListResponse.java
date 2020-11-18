@@ -1,6 +1,7 @@
 package tr.com.tokenpay.response;
 
 import lombok.Data;
+import tr.com.tokenpay.response.dto.PayoutCompletedTransaction;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ import java.util.List;
 public class PayoutCompletedTransactionListResponse {
 
     private Long size;
-    private List<PayoutCompletedTransactionResponse> items;
+    private List<PayoutCompletedTransaction> items;
 }

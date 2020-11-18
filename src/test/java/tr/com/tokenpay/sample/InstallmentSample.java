@@ -5,7 +5,7 @@ import tr.com.tokenpay.TokenPay;
 import tr.com.tokenpay.model.CardAssociation;
 import tr.com.tokenpay.model.CardType;
 import tr.com.tokenpay.model.Currency;
-import tr.com.tokenpay.request.SearchInstallmentRequest;
+import tr.com.tokenpay.request.SearchInstallmentsRequest;
 import tr.com.tokenpay.response.BinNumberResponse;
 import tr.com.tokenpay.response.InstallmentListResponse;
 
@@ -20,7 +20,7 @@ public class InstallmentSample {
 
     @Test
     void search_installments_sample() {
-        SearchInstallmentRequest request = SearchInstallmentRequest.builder()
+        SearchInstallmentsRequest request = SearchInstallmentsRequest.builder()
                 .binNumber("525864")
                 .price(BigDecimal.valueOf(100L))
                 .currency(Currency.TRY)

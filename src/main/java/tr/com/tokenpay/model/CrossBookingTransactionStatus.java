@@ -6,5 +6,5 @@ public enum CrossBookingTransactionStatus {
     PAYOUT_STARTED,
     PAYOUT_COMPLETED,
     NOT_FOUND_IN_SETTLEMENT,
-    CANCELLED;
+    CANCELLED
 }

@@ -1,6 +1,7 @@
 package tr.com.tokenpay.response;
 
 import lombok.Data;
+import tr.com.tokenpay.response.dto.PaymentTransactionApproval;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ import java.util.List;
 public class PaymentTransactionApprovalListResponse {
 
     private Long size;
-    private List<PaymentTransactionApprovalResponse> items;
+    private List<PaymentTransactionApproval> items;
 }

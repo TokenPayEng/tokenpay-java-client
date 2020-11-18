@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import tr.com.tokenpay.TokenPay;
 import tr.com.tokenpay.model.*;
 import tr.com.tokenpay.request.*;
-import tr.com.tokenpay.request.dto.PaymentCard;
+import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
 import tr.com.tokenpay.response.*;
 
@@ -57,7 +57,7 @@ public class PaymentSample {
                 .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
                 .paymentGroup(PaymentGroup.PRODUCT)
                 .paymentPhase(PaymentPhase.AUTH)
-                .card(PaymentCard.builder()
+                .card(Card.builder()
                         .cardHolderName("Haluk Demir")
                         .cardNumber("5258640000000001")
                         .expireYear("2044")
@@ -127,7 +127,7 @@ public class PaymentSample {
                 .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
                 .paymentGroup(PaymentGroup.PRODUCT)
                 .paymentPhase(PaymentPhase.AUTH)
-                .card(PaymentCard.builder()
+                .card(Card.builder()
                         .cardHolderName("Haluk Demir")
                         .cardNumber("5258640000000001")
                         .expireYear("2044")
@@ -200,7 +200,7 @@ public class PaymentSample {
                 .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
                 .paymentGroup(PaymentGroup.PRODUCT)
                 .paymentPhase(PaymentPhase.AUTH)
-                .card(PaymentCard.builder()
+                .card(Card.builder()
                         .cardHolderName("Haluk Demir")
                         .cardNumber("5258640000000001")
                         .expireYear("2044")

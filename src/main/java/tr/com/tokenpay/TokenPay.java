@@ -8,14 +8,15 @@ import tr.com.tokenpay.request.common.RequestOptions;
 
 public class TokenPay {
 
-    private static final String baseUrl = "https://api.tokenpay.com.tr";
+    private static final String BASE_URL = "https://api-gateway.tokenpay.com.tr";
+
     private final PaymentAdapter payment;
     private final SettlementReportingAdapter settlementReportingAdapter;
     private final InstallmentAdapter installmentAdapter;
     private final OnboardingAdapter onboardingAdapter;
 
     public TokenPay(String apiKey, String secretKey) {
-        this(apiKey, secretKey, baseUrl);
+        this(apiKey, secretKey, BASE_URL);
     }
 
     public TokenPay(String apiKey, String secretKey, String baseUrl) {

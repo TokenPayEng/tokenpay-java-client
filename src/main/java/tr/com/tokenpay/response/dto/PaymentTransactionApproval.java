@@ -1,10 +1,10 @@
-package tr.com.tokenpay.response;
+package tr.com.tokenpay.response.dto;
 
 import lombok.Data;
 import tr.com.tokenpay.model.ApprovalStatus;
 
 @Data
-public class PaymentTransactionApprovalResponse {
+public class PaymentTransactionApproval {
 
     private Long paymentTransactionId;
     private ApprovalStatus approvalStatus;

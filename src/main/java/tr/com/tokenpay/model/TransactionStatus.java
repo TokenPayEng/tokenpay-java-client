@@ -4,5 +4,5 @@ public enum TransactionStatus {
 
     WAITING_FOR_APPROVAL,
     APPROVED,
-    PAYOUT_STARTED;
+    PAYOUT_STARTED
 }
