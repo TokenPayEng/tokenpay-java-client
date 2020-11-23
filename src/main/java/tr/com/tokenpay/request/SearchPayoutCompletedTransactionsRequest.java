@@ -1,7 +1,7 @@
 package tr.com.tokenpay.request;
 
-import lombok.Data;
 import lombok.Builder;
+import lombok.Data;
 import tr.com.tokenpay.model.SettlementType;
 import tr.com.tokenpay.request.common.Request;
 

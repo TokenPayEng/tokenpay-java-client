@@ -1,6 +1,9 @@
 package tr.com.tokenpay;
 
-import tr.com.tokenpay.adapter.*;
+import tr.com.tokenpay.adapter.InstallmentAdapter;
+import tr.com.tokenpay.adapter.OnboardingAdapter;
+import tr.com.tokenpay.adapter.PaymentAdapter;
+import tr.com.tokenpay.adapter.SettlementReportingAdapter;
 import tr.com.tokenpay.request.common.RequestOptions;
 
 public class TokenPay {

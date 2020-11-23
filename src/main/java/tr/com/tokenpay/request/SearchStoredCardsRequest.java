@@ -2,7 +2,6 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Builder;
 import tr.com.tokenpay.model.CardAssociation;
 import tr.com.tokenpay.model.CardType;
 import tr.com.tokenpay.request.common.Request;
