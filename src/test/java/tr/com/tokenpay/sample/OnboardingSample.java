@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class OnboardingSample {
 
-    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
+    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "https://api-gateway.tokenpay.com.tr");
 
     @Test
     void create_sub_merchant() {

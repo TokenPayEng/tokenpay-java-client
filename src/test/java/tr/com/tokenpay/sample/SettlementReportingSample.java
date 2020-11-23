@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SettlementReportingSample {
 
-    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
+    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "https://api-gateway.tokenpay.com.tr");
 
     @Test
     void search_bounced_sub_merchant_rows() {

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InstallmentSample {
 
-    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
+    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "https://api-gateway.tokenpay.com.tr");
 
     @Test
     void retrieve_bin() {
