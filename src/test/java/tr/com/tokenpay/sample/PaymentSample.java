@@ -21,7 +21,71 @@ public class PaymentSample {
     private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
 
     @Test
-    void create_payment_sample() {
+    void create_payment() {
+        List<PaymentItem> items = new ArrayList<>();
+
+        items.add(PaymentItem.builder()
+                .name("item 1")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(30))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 2")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(50))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 3")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(20))
+                .build());
+
+        CreatePaymentRequest request = CreatePaymentRequest.builder()
+                .price(BigDecimal.valueOf(100))
+                .paidPrice(BigDecimal.valueOf(100))
+                .walletPrice(BigDecimal.ZERO)
+                .installment(1)
+                .currency(Currency.TRY)
+                .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
+                .paymentGroup(PaymentGroup.LISTING_OR_SUBSCRIPTION)
+                .paymentPhase(PaymentPhase.AUTH)
+                .card(Card.builder()
+                        .cardHolderName("Haluk Demir")
+                        .cardNumber("5258640000000001")
+                        .expireYear("2044")
+                        .expireMonth("07")
+                        .cvc("000")
+                        .build())
+                .items(items)
+                .build();
+
+        PaymentResponse response = tokenPay.payment().createPayment(request);
+        assertNotNull(response.getId());
+        assertEquals(request.getPrice(), response.getPrice());
+        assertEquals(request.getPaidPrice(), response.getPaidPrice());
+        assertEquals(request.getWalletPrice(), response.getWalletPrice());
+        assertEquals(request.getCurrency(), response.getCurrency());
+        assertEquals(request.getInstallment(), response.getInstallment());
+        assertEquals(request.getPaymentGroup(), response.getPaymentGroup());
+        assertEquals(request.getPaymentPhase(), response.getPaymentPhase());
+        assertEquals(false, response.getIsThreeDS());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRate());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRateAmount());
+        assertEquals(false, response.getPaidWithStoredCard());
+        assertEquals("525864", response.getBinNumber());
+        assertEquals("0001", response.getLastFourDigits());
+        assertEquals(CardType.CREDIT_CARD, response.getCardType());
+        assertEquals(CardAssociation.MASTER_CARD, response.getCardAssociation());
+        assertEquals("World", response.getCardBrand());
+        assertEquals(3, response.getPaymentTransactions().size());
+        assertNull(response.getCardUserKey());
+        assertNull(response.getCardToken());
+    }
+
+    @Test
+    void create_marketplace_payment() {
         List<PaymentItem> items = new ArrayList<>();
 
         items.add(PaymentItem.builder()
@@ -67,52 +131,31 @@ public class PaymentSample {
                 .items(items)
                 .build();
 
-        PaymentResponse paymentResponse = tokenPay.payment().createPayment(request);
-        assertNotNull(paymentResponse.getId());
-        assertEquals(paymentResponse.getPrice(), request.getPrice());
-        assertEquals(paymentResponse.getPaidPrice(), request.getPaidPrice());
-        assertEquals(paymentResponse.getWalletPrice(), request.getWalletPrice());
-        assertEquals(paymentResponse.getCurrency(), request.getCurrency());
-        assertEquals(paymentResponse.getInstallment(), request.getInstallment());
-        assertEquals(paymentResponse.getPaymentGroup(), request.getPaymentGroup());
-        assertEquals(paymentResponse.getPaymentPhase(), request.getPaymentPhase());
-        assertEquals(paymentResponse.getIsThreeDS(), false);
-        assertEquals(paymentResponse.getMerchantCommissionRate(), BigDecimal.ZERO);
-        assertEquals(paymentResponse.getMerchantCommissionRateAmount(), BigDecimal.ZERO);
-        assertEquals(paymentResponse.getPaidWithStoredCard(), false);
-        assertEquals(paymentResponse.getBinNumber(), "525864");
-        assertEquals(paymentResponse.getLastFourDigits(), "0001");
-        assertEquals(paymentResponse.getCardType(), CardType.CREDIT_CARD);
-        assertEquals(paymentResponse.getCardAssociation(), CardAssociation.MASTER_CARD);
-        assertEquals(paymentResponse.getCardBrand(), "World");
-        assertEquals(paymentResponse.getPaymentTransactions().size(), 3);
-        assertNull(paymentResponse.getCardUserKey());
-        assertNull(paymentResponse.getCardToken());
+        PaymentResponse response = tokenPay.payment().createPayment(request);
+        assertNotNull(response.getId());
+        assertEquals(request.getPrice(), response.getPrice());
+        assertEquals(request.getPaidPrice(), response.getPaidPrice());
+        assertEquals(request.getWalletPrice(), response.getWalletPrice());
+        assertEquals(request.getCurrency(), response.getCurrency());
+        assertEquals(request.getInstallment(), response.getInstallment());
+        assertEquals(request.getPaymentGroup(), response.getPaymentGroup());
+        assertEquals(request.getPaymentPhase(), response.getPaymentPhase());
+        assertEquals(false, response.getIsThreeDS());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRate());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRateAmount());
+        assertEquals(false, response.getPaidWithStoredCard());
+        assertEquals("525864", response.getBinNumber());
+        assertEquals("0001", response.getLastFourDigits());
+        assertEquals(CardType.CREDIT_CARD, response.getCardType());
+        assertEquals(CardAssociation.MASTER_CARD, response.getCardAssociation());
+        assertEquals("World", response.getCardBrand());
+        assertEquals(3, response.getPaymentTransactions().size());
+        assertNull(response.getCardUserKey());
+        assertNull(response.getCardToken());
     }
 
     @Test
-    void retrieve_payment_sample() {
-        Long paymentId = 1L;
-
-        PaymentDetailResponse paymentResponse = tokenPay.payment().retrievePayment(paymentId);
-        assertNotNull(paymentResponse);
-        assertEquals(paymentResponse.getId(), paymentId);
-    }
-
-    @Test
-    void search_payment_sample() {
-        SearchPaymentsRequest request = SearchPaymentsRequest.builder()
-                .currency(Currency.TRY)
-                .paymentStatus(PaymentStatus.SUCCESS)
-                .build();
-
-        PaymentDetailListResponse paymentDetailListResponse = tokenPay.payment().searchPayments(request);
-        assertNotNull(paymentDetailListResponse);
-        assertTrue(paymentDetailListResponse.getItems().size() > 0);
-    }
-
-    @Test
-    void create_payment_and_store_card_sample() {
+    void create_payment_and_store_card() {
         List<PaymentItem> items = new ArrayList<>();
 
         items.add(PaymentItem.builder()
@@ -160,31 +203,31 @@ public class PaymentSample {
                 .items(items)
                 .build();
 
-        PaymentResponse paymentResponse = tokenPay.payment().createPayment(request);
-        assertNotNull(paymentResponse.getId());
-        assertEquals(paymentResponse.getPrice(), request.getPrice());
-        assertEquals(paymentResponse.getPaidPrice(), request.getPaidPrice());
-        assertEquals(paymentResponse.getWalletPrice(), request.getWalletPrice());
-        assertEquals(paymentResponse.getCurrency(), request.getCurrency());
-        assertEquals(paymentResponse.getInstallment(), request.getInstallment());
-        assertEquals(paymentResponse.getPaymentGroup(), request.getPaymentGroup());
-        assertEquals(paymentResponse.getPaymentPhase(), request.getPaymentPhase());
-        assertEquals(paymentResponse.getIsThreeDS(), false);
-        assertEquals(paymentResponse.getMerchantCommissionRate(), BigDecimal.ZERO);
-        assertEquals(paymentResponse.getMerchantCommissionRateAmount(), BigDecimal.ZERO);
-        assertEquals(paymentResponse.getPaidWithStoredCard(), false);
-        assertEquals(paymentResponse.getBinNumber(), "525864");
-        assertEquals(paymentResponse.getLastFourDigits(), "0001");
-        assertEquals(paymentResponse.getCardType(), CardType.CREDIT_CARD);
-        assertEquals(paymentResponse.getCardAssociation(), CardAssociation.MASTER_CARD);
-        assertEquals(paymentResponse.getCardBrand(), "World");
-        assertEquals(paymentResponse.getPaymentTransactions().size(), 3);
-        assertNotNull(paymentResponse.getCardUserKey());
-        assertNotNull(paymentResponse.getCardToken());
+        PaymentResponse response = tokenPay.payment().createPayment(request);
+        assertNotNull(response.getId());
+        assertEquals(request.getPrice(), response.getPrice());
+        assertEquals(request.getPaidPrice(), response.getPaidPrice());
+        assertEquals(request.getWalletPrice(), response.getWalletPrice());
+        assertEquals(request.getCurrency(), response.getCurrency());
+        assertEquals(request.getInstallment(), response.getInstallment());
+        assertEquals(request.getPaymentGroup(), response.getPaymentGroup());
+        assertEquals(request.getPaymentPhase(), response.getPaymentPhase());
+        assertEquals(false, response.getIsThreeDS());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRate());
+        assertEquals(BigDecimal.ZERO, response.getMerchantCommissionRateAmount());
+        assertEquals(false, response.getPaidWithStoredCard());
+        assertEquals("525864", response.getBinNumber());
+        assertEquals("0001", response.getLastFourDigits());
+        assertEquals(CardType.CREDIT_CARD, response.getCardType());
+        assertEquals(CardAssociation.MASTER_CARD, response.getCardAssociation());
+        assertEquals("World", response.getCardBrand());
+        assertEquals(3, response.getPaymentTransactions().size());
+        assertNotNull(response.getCardUserKey());
+        assertNotNull(response.getCardToken());
     }
 
     @Test
-    void init_3ds_payment_sample() {
+    void init_3DS_payment() {
         List<PaymentItem> items = new ArrayList<>();
 
         items.add(PaymentItem.builder()
@@ -231,23 +274,24 @@ public class PaymentSample {
                 .items(items)
                 .build();
 
-        InitThreeDSPaymentResponse initThreeDSPaymentResponse = tokenPay.payment().init3DSPayment(request);
-        assertNotNull(initThreeDSPaymentResponse);
-        assertNotNull(initThreeDSPaymentResponse.getHtmlContent());
+        InitThreeDSPaymentResponse response = tokenPay.payment().init3DSPayment(request);
+        assertNotNull(response);
+        assertNotNull(response.getHtmlContent());
+        assertNotNull(response.getDecodedHtmlContent());
     }
 
     @Test
-    void complete_3ds_payment_sample() {
+    void complete_3DS_payment() {
         CompleteThreeDSPaymentRequest request = CompleteThreeDSPaymentRequest.builder()
                 .paymentId(1L)
                 .build();
 
-        PaymentResponse paymentResponse = tokenPay.payment().complete3DSPayment(request);
-        assertNotNull(paymentResponse);
+        PaymentResponse response = tokenPay.payment().complete3DSPayment(request);
+        assertNotNull(response);
     }
 
     @Test
-    void approve_payment_transaction_sample() {
+    void approve_payment_transaction() {
         ApprovePaymentTransactionsRequest request = ApprovePaymentTransactionsRequest.builder()
                 .isTransactional(true)
                 .paymentTransactionIds(new HashSet<Long>() {{
@@ -256,13 +300,13 @@ public class PaymentSample {
                 }})
                 .build();
 
-        PaymentTransactionApprovalListResponse paymentTransactionApprovalListResponse = tokenPay.payment().approvePaymentTransactions(request);
-        assertNotNull(paymentTransactionApprovalListResponse);
-        assertEquals(paymentTransactionApprovalListResponse.getSize(), 2);
+        PaymentTransactionApprovalListResponse response = tokenPay.payment().approvePaymentTransactions(request);
+        assertNotNull(response);
+        assertEquals(2, response.getSize());
     }
 
     @Test
-    void disapprove_payment_transaction_sample() {
+    void disapprove_payment_transaction() {
         DisapprovePaymentTransactionsRequest request = DisapprovePaymentTransactionsRequest.builder()
                 .isTransactional(true)
                 .paymentTransactionIds(new HashSet<Long>() {{
@@ -271,35 +315,56 @@ public class PaymentSample {
                 }})
                 .build();
 
-        PaymentTransactionApprovalListResponse paymentTransactionApprovalListResponse = tokenPay.payment().disapprovePaymentTransactions(request);
-        assertNotNull(paymentTransactionApprovalListResponse);
-        assertEquals(paymentTransactionApprovalListResponse.getSize(), 2);
+        PaymentTransactionApprovalListResponse response = tokenPay.payment().disapprovePaymentTransactions(request);
+        assertNotNull(response);
+        assertEquals(2, response.getSize());
     }
 
     @Test
-    void refund_payment_sample() {
+    void retrieve_payment() {
+        Long paymentId = 1L;
+
+        PaymentDetailResponse response = tokenPay.payment().retrievePayment(paymentId);
+        assertNotNull(response);
+        assertEquals(paymentId, response.getId());
+    }
+
+    @Test
+    void search_payments() {
+        SearchPaymentsRequest request = SearchPaymentsRequest.builder()
+                .currency(Currency.TRY)
+                .paymentStatus(PaymentStatus.SUCCESS)
+                .build();
+
+        PaymentDetailListResponse response = tokenPay.payment().searchPayments(request);
+        assertNotNull(response);
+        assertTrue(response.getItems().size() > 0);
+    }
+
+    @Test
+    void refund_payment() {
         RefundPaymentRequest request = RefundPaymentRequest.builder()
                 .paymentId(1L)
                 .refundDestinationType(RefundDestinationType.CARD)
                 .build();
 
-        PaymentRefundResponse paymentRefundResponse = tokenPay.payment().refundPayment(request);
-        assertNotNull(paymentRefundResponse);
-        assertEquals(paymentRefundResponse.getPaymentId(), request.getPaymentId());
-        assertEquals(paymentRefundResponse.getStatus(), RefundStatus.SUCCESS);
+        PaymentRefundResponse response = tokenPay.payment().refundPayment(request);
+        assertNotNull(response);
+        assertEquals(request.getPaymentId(), response.getPaymentId());
+        assertEquals(RefundStatus.SUCCESS, response.getStatus());
     }
 
     @Test
-    void retrieve_refund_sample() {
+    void retrieve_payment_refund() {
         Long paymentRefundId = 1L;
 
-        PaymentRefundResponse paymentRefundResponse = tokenPay.payment().retrievePaymentRefund(paymentRefundId);
-        assertNotNull(paymentRefundResponse);
-        assertEquals(paymentRefundResponse.getId(), paymentRefundId);
+        PaymentRefundResponse response = tokenPay.payment().retrievePaymentRefund(paymentRefundId);
+        assertNotNull(response);
+        assertEquals(paymentRefundId, response.getId());
     }
 
     @Test
-    void refund_payment_transaction_sample() {
+    void refund_payment_transaction() {
         RefundPaymentTransactionRequest request = RefundPaymentTransactionRequest.builder()
                 .paymentTransactionId(1L)
                 .refundPrice(BigDecimal.valueOf(20))
@@ -307,104 +372,45 @@ public class PaymentSample {
                 .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
                 .build();
 
-        PaymentTransactionRefundResponse paymentTransactionRefundResponse = tokenPay.payment().refundPaymentTransaction(request);
-        assertNotNull(paymentTransactionRefundResponse);
-        assertEquals(paymentTransactionRefundResponse.getPaymentTransactionId(), request.getPaymentTransactionId());
-        assertEquals(paymentTransactionRefundResponse.getStatus(), RefundStatus.SUCCESS);
+        PaymentTransactionRefundResponse response = tokenPay.payment().refundPaymentTransaction(request);
+        assertNotNull(response);
+        assertEquals(request.getPaymentTransactionId(), response.getPaymentTransactionId());
+        assertEquals(RefundStatus.SUCCESS, response.getStatus());
     }
 
     @Test
-    void retrieve_payment_transaction_refund_sample() {
+    void retrieve_payment_transaction_refund() {
         Long paymentTransactionRefundId = 1L;
 
-        PaymentTransactionRefundResponse paymentTransactionRefundResponse = tokenPay.payment().retrievePaymentTransactionRefund(paymentTransactionRefundId);
-        assertNotNull(paymentTransactionRefundResponse);
-        assertEquals(paymentTransactionRefundResponse.getId(), paymentTransactionRefundId);
-        assertEquals(paymentTransactionRefundResponse.getStatus(), RefundStatus.SUCCESS);
+        PaymentTransactionRefundResponse response = tokenPay.payment().retrievePaymentTransactionRefund(paymentTransactionRefundId);
+        assertNotNull(response);
+        assertEquals(paymentTransactionRefundId, response.getId());
+        assertEquals(RefundStatus.SUCCESS, response.getStatus());
     }
 
     @Test
-    void search_payment_transaction_refund_sample() {
+    void search_payment_transaction_refunds() {
         SearchPaymentTransactionRefundsRequest request = SearchPaymentTransactionRefundsRequest.builder()
                 .paymentId(1L)
                 .build();
 
-        PaymentTransactionRefundListResponse paymentTransactionRefundListResponse = tokenPay.payment().searchPaymentTransactionRefunds(request);
-        assertNotNull(paymentTransactionRefundListResponse);
-        assertTrue(paymentTransactionRefundListResponse.getItems().size() > 0);
+        PaymentTransactionRefundListResponse response = tokenPay.payment().searchPaymentTransactionRefunds(request);
+        assertNotNull(response);
+        assertTrue(response.getItems().size() > 0);
     }
 
     @Test
-    void send_cross_booking_money_sample() {
-        CrossBookingRequest request = CrossBookingRequest.builder()
-                .currency(Currency.TRY)
-                .price(BigDecimal.valueOf(100))
-                .reason("Send Money")
-                .subMerchantId(1L)
-                .build();
-
-        CrossBookingTransactionResponse crossBookingTransactionResponse = tokenPay.payment().sendMoney(request);
-        assertNotNull(crossBookingTransactionResponse);
-        assertEquals(crossBookingTransactionResponse.getPrice(), BigDecimal.valueOf(100));
-        assertEquals(crossBookingTransactionResponse.getTransactionStatus(), CrossBookingTransactionStatus.WAITING_FOR_PAYOUT);
-    }
-
-    @Test
-    void receive_cross_booking_money_sample() {
-        CrossBookingRequest request = CrossBookingRequest.builder()
-                .currency(Currency.TRY)
-                .price(BigDecimal.valueOf(100))
-                .reason("Receive Money")
-                .subMerchantId(1L)
-                .build();
-
-        CrossBookingTransactionResponse crossBookingTransactionResponse = tokenPay.payment().receiveMoney(request);
-        assertNotNull(crossBookingTransactionResponse);
-        assertEquals(crossBookingTransactionResponse.getPrice(), BigDecimal.valueOf(100));
-        assertEquals(crossBookingTransactionResponse.getTransactionStatus(), CrossBookingTransactionStatus.WAITING_FOR_PAYOUT);
-    }
-
-    @Test
-    void cancel_cross_booking_sample() {
-        CancelCrossBookingRequest request = CancelCrossBookingRequest.builder()
-                .crossBookingId(1L)
-                .build();
-
-        CrossBookingTransactionResponse crossBookingTransactionResponse = tokenPay.payment().cancelCrossBooking(request);
-        assertNotNull(crossBookingTransactionResponse);
-        assertEquals(crossBookingTransactionResponse.getId(), request.getCrossBookingId());
-        assertEquals(crossBookingTransactionResponse.getTransactionStatus(), CrossBookingTransactionStatus.CANCELLED);
-    }
-
-    @Test
-    void cross_booking_search_sample() {
-        SearchCrossBookingsRequest request = SearchCrossBookingsRequest.builder()
-                .sourceMerchantId(1L)
-                .sourceMerchantType(MerchantType.MERCHANT)
-                .destinationMerchantId(1L)
-                .destinationMerchantType(MerchantType.SUB_MERCHANT)
-                .transactionStatus(CrossBookingTransactionStatus.WAITING_FOR_PAYOUT)
-                .page(0)
-                .size(25)
-                .build();
-
-        CrossBookingTransactionListResponse crossBookingTransactionListResponse = tokenPay.payment().searchCrossBookings(request);
-        assertNotNull(crossBookingTransactionListResponse);
-        assertTrue(crossBookingTransactionListResponse.getItems().size() > 0);
-    }
-
-    @Test
-    void delete_stored_card_sample() {
+    void delete_stored_card() {
         DeleteStoredCardRequest request = DeleteStoredCardRequest.builder()
-                .cardUserKey("45012f78-3d68-4d58-902f-d4d858f14d67")
-                .cardToken("0ca79029-d805-4e02-97fc-5c599734bc6b")
+                .cardUserKey("fac377f2-ab15-4696-88d2-5e71b27ec378")
+                .cardToken("11a078c4-3c32-4796-90b1-51ee5517a212")
                 .build();
 
         tokenPay.payment().deleteStoredCard(request);
     }
 
     @Test
-    void search_card_sample() {
+    void search_stored_cards() {
         SearchStoredCardsRequest request = SearchStoredCardsRequest.builder()
                 .cardAlias("My YKB Card")
                 .cardBankName("YAPI VE KREDİ BANKASI A.Ş.")
@@ -415,8 +421,8 @@ public class PaymentSample {
                 .cardType(CardType.CREDIT_CARD)
                 .build();
 
-        StoredCardListResponse storedCardListResponse = tokenPay.payment().searchStoredCards(request);
-        assertNotNull(storedCardListResponse);
-        assertTrue(storedCardListResponse.getItems().size() > 0);
+        StoredCardListResponse response = tokenPay.payment().searchStoredCards(request);
+        assertNotNull(response);
+        assertTrue(response.getItems().size() > 0);
     }
 }

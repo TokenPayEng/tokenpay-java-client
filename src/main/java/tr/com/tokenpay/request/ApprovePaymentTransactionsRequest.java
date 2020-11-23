@@ -2,14 +2,13 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.util.Set;
 
 @Data
-@SuperBuilder
-public class ApprovePaymentTransactionsRequest extends BaseRequest {
+@Builder
+public class ApprovePaymentTransactionsRequest implements Request {
 
     private Set<Long> paymentTransactionIds;
 

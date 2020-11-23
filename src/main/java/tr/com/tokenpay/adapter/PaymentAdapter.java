@@ -26,7 +26,6 @@ public class PaymentAdapter extends BaseAdapter {
     public PaymentDetailListResponse searchPayments(SearchPaymentsRequest searchPaymentsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchPaymentsRequest);
         String path = "/payment-reporting/v1/payments" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), PaymentDetailListResponse.class);
     }
 
@@ -68,7 +67,6 @@ public class PaymentAdapter extends BaseAdapter {
     public PaymentTransactionRefundListResponse searchPaymentTransactionRefunds(SearchPaymentTransactionRefundsRequest searchPaymentTransactionRefundsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchPaymentTransactionRefundsRequest);
         String path = "/payment/v1/refund-transactions" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), PaymentTransactionRefundListResponse.class);
     }
 
@@ -104,21 +102,18 @@ public class PaymentAdapter extends BaseAdapter {
     public CrossBookingTransactionListResponse searchCrossBookings(SearchCrossBookingsRequest searchCrossBookingsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchCrossBookingsRequest);
         String path = "/payment/v1/cross-bookings" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), CrossBookingTransactionListResponse.class);
     }
 
     public void deleteStoredCard(DeleteStoredCardRequest deleteStoredCardRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(deleteStoredCardRequest);
         String path = "/payment/v1/cards" + query;
-
         HttpClient.delete(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), Void.class);
     }
 
     public StoredCardListResponse searchStoredCards(SearchStoredCardsRequest searchStoredCardsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchStoredCardsRequest);
         String path = "/payment/v1/cards" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), StoredCardListResponse.class);
     }
 }

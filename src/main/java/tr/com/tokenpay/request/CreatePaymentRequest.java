@@ -2,11 +2,12 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Builder;
 import lombok.experimental.SuperBuilder;
 import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentGroup;
 import tr.com.tokenpay.model.PaymentPhase;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Data
 @SuperBuilder
-public class CreatePaymentRequest extends BaseRequest {
+public class CreatePaymentRequest implements Request {
 
     protected BigDecimal price;
     protected BigDecimal paidPrice;

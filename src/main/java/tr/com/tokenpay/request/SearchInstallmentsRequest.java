@@ -1,15 +1,15 @@
 package tr.com.tokenpay.request;
 
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.Currency;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.math.BigDecimal;
 
 @Data
-@SuperBuilder
-public class SearchInstallmentsRequest extends BaseRequest {
+@Builder
+public class SearchInstallmentsRequest implements Request {
 
     private String binNumber;
     private BigDecimal price;

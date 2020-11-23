@@ -2,18 +2,18 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentStatus;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
-@SuperBuilder
-public class SearchPaymentsRequest extends BaseRequest {
+@Builder
+public class SearchPaymentsRequest implements Request {
 
     @Builder.Default
     private Integer page = 0;

@@ -2,6 +2,7 @@ package tr.com.tokenpay.response.dto;
 
 import lombok.Data;
 import tr.com.tokenpay.model.Currency;
+import tr.com.tokenpay.model.MerchantType;
 
 import java.math.BigDecimal;
 
@@ -13,5 +14,5 @@ public class PayoutCompletedTransaction {
     private BigDecimal payoutAmount;
     private Currency currency;
     private Long merchantId;
-    private String merchantType;
+    private MerchantType merchantType;
 }

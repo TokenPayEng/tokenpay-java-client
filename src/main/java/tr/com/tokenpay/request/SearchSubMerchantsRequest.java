@@ -2,15 +2,15 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.SubMerchantType;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.util.Set;
 
 @Data
-@SuperBuilder
-public class SearchSubMerchantsRequest extends BaseRequest {
+@Builder
+public class SearchSubMerchantsRequest implements Request {
 
     private String name;
     private Set<Long> subMerchantIds;

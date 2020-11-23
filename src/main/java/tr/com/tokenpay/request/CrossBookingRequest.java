@@ -1,15 +1,16 @@
 package tr.com.tokenpay.request;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.Currency;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.math.BigDecimal;
 
 @Data
-@SuperBuilder
-public class CrossBookingRequest extends BaseRequest {
+@Builder
+public class CrossBookingRequest implements Request {
 
     private String reason;
     private BigDecimal price;

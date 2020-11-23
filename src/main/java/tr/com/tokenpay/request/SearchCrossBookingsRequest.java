@@ -2,14 +2,14 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.CrossBookingTransactionStatus;
 import tr.com.tokenpay.model.MerchantType;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 @Data
-@SuperBuilder
-public class SearchCrossBookingsRequest extends BaseRequest {
+@Builder
+public class SearchCrossBookingsRequest implements Request {
 
     private Long sourceMerchantId;
     private MerchantType sourceMerchantType;

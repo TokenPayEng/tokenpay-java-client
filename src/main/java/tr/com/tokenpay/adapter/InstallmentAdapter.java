@@ -16,7 +16,6 @@ public class InstallmentAdapter extends BaseAdapter {
     public InstallmentListResponse searchInstallments(SearchInstallmentsRequest searchInstallmentsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchInstallmentsRequest);
         String path = "/installment/v1/installments" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), InstallmentListResponse.class);
     }
 

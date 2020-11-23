@@ -2,15 +2,15 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.RefundDestinationType;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 import java.math.BigDecimal;
 
 @Data
-@SuperBuilder
-public class RefundPaymentTransactionRequest extends BaseRequest {
+@Builder
+public class RefundPaymentTransactionRequest implements Request {
 
     private Long paymentTransactionId;
     private String conversationId;

@@ -1,6 +1,6 @@
 package tr.com.tokenpay.adapter;
 
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 import tr.com.tokenpay.request.common.HashGenerator;
 import tr.com.tokenpay.request.common.RequestOptions;
 
@@ -22,7 +22,7 @@ public abstract class BaseAdapter {
         this.requestOptions = requestOptions;
     }
 
-    protected Map<String, String> createHeaders(BaseRequest request, String path, RequestOptions requestOptions) {
+    protected Map<String, String> createHeaders(Request request, String path, RequestOptions requestOptions) {
         return createHttpHeaders(request, path, requestOptions);
     }
 
@@ -30,7 +30,7 @@ public abstract class BaseAdapter {
         return createHttpHeaders(null, path, requestOptions);
     }
 
-    private static Map<String, String> createHttpHeaders(BaseRequest request, String path, RequestOptions options) {
+    private static Map<String, String> createHttpHeaders(Request request, String path, RequestOptions options) {
         Map<String, String> headers = new HashMap<>();
 
         String randomString = UUID.randomUUID().toString();
@@ -41,7 +41,7 @@ public abstract class BaseAdapter {
         return headers;
     }
 
-    private static String prepareAuthorizationString(BaseRequest request, String path, String randomString, RequestOptions options) {
+    private static String prepareAuthorizationString(Request request, String path, String randomString, RequestOptions options) {
         return HashGenerator.generateHash(options.getBaseUrl(), options.getApiKey(), options.getSecretKey(), randomString, request, path);
     }
 }

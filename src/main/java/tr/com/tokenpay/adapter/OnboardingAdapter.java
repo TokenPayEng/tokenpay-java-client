@@ -34,7 +34,6 @@ public class OnboardingAdapter extends BaseAdapter {
     public SubMerchantListResponse searchSubMerchants(SearchSubMerchantsRequest searchSubMerchantsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchSubMerchantsRequest);
         String path = "/onboarding/v1/sub-merchants" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), SubMerchantListResponse.class);
     }
 

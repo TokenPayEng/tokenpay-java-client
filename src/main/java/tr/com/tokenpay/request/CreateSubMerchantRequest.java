@@ -1,13 +1,13 @@
 package tr.com.tokenpay.request;
 
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 import tr.com.tokenpay.model.SubMerchantType;
-import tr.com.tokenpay.request.common.BaseRequest;
+import tr.com.tokenpay.request.common.Request;
 
 @Data
-@SuperBuilder
-public class CreateSubMerchantRequest extends BaseRequest {
+@Builder
+public class CreateSubMerchantRequest implements Request {
 
     private SubMerchantType subMerchantType;
     private String subMerchantExternalId;

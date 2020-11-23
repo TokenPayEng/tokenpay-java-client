@@ -13,7 +13,7 @@ public final class HashGenerator {
     private HashGenerator() {
     }
 
-    public static String generateHash(String baseUrl, String apiKey, String secretKey, String randomString, BaseRequest request, String path) {
+    public static String generateHash(String baseUrl, String apiKey, String secretKey, String randomString, Request request, String path) {
         try {
             String hashData = "";
             String decodedUrl = URLDecoder.decode(baseUrl + path, StandardCharsets.UTF_8.toString());

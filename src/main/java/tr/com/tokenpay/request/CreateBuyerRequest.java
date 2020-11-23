@@ -1,12 +1,12 @@
 package tr.com.tokenpay.request;
 
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
-import tr.com.tokenpay.request.common.BaseRequest;
+import lombok.Builder;
+import tr.com.tokenpay.request.common.Request;
 
 @Data
-@SuperBuilder
-public class CreateBuyerRequest extends BaseRequest {
+@Builder
+public class CreateBuyerRequest implements Request {
 
     private String email;
     private String name;

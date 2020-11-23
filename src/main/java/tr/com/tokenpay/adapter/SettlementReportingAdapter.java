@@ -17,14 +17,12 @@ public class SettlementReportingAdapter extends BaseAdapter {
     public BouncedSubMerchantRowListResponse searchBouncedSubMerchantRows(SearchBouncedSubMerchantRowsRequest searchBouncedSubMerchantRowsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchBouncedSubMerchantRowsRequest);
         String path = "/settlement-reporting/v1/settlement-file/bounced-sub-merchant-rows" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), BouncedSubMerchantRowListResponse.class);
     }
 
     public PayoutCompletedTransactionListResponse searchPayoutCompletedTransactions(SearchPayoutCompletedTransactionsRequest searchPayoutCompletedTransactionsRequest) {
         String query = RequestQueryParamsBuilder.buildQueryParam(searchPayoutCompletedTransactionsRequest);
         String path = "/settlement-reporting/v1/settlement-file/payout-completed-transactions" + query;
-
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), PayoutCompletedTransactionListResponse.class);
     }
 }

@@ -1,14 +1,14 @@
 package tr.com.tokenpay.request;
 
 import lombok.Data;
-import lombok.experimental.SuperBuilder;
-import tr.com.tokenpay.request.common.BaseRequest;
+import lombok.Builder;
+import tr.com.tokenpay.request.common.Request;
 
 import java.time.LocalDateTime;
 
 @Data
-@SuperBuilder
-public class SearchBouncedSubMerchantRowsRequest extends BaseRequest {
+@Builder
+public class SearchBouncedSubMerchantRowsRequest implements Request {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
