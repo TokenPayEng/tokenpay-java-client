@@ -53,6 +53,17 @@ public class PaymentAdapter extends BaseAdapter {
                 completeThreeDSPaymentRequest, PaymentResponse.class);
     }
 
+    public InitCheckoutPaymentResponse initCheckoutPayment(InitCheckoutPaymentRequest initCheckoutPaymentRequest) {
+        String path = "/payment/v1/checkout-payment/init";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(initCheckoutPaymentRequest, path, requestOptions),
+                initCheckoutPaymentRequest, InitCheckoutPaymentResponse.class);
+    }
+
+    public PaymentResponse retrieveCheckoutPayment(String token) {
+        String path = "/payment/v1/checkout-payment?token=" + token;
+        return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), PaymentResponse.class);
+    }
+
     public PaymentTransactionRefundResponse refundPaymentTransaction(RefundPaymentTransactionRequest refundPaymentTransactionRequest) {
         String path = "/payment/v1/refund-transactions";
         return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(refundPaymentTransactionRequest, path, requestOptions),

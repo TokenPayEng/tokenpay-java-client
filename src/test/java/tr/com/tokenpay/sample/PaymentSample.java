@@ -291,6 +291,54 @@ public class PaymentSample {
     }
 
     @Test
+    void init_checkout_payment() {
+        List<PaymentItem> items = new ArrayList<>();
+
+        items.add(PaymentItem.builder()
+                .name("item 1")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(30))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 2")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(50))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 3")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(20))
+                .build());
+
+        InitCheckoutPaymentRequest request = InitCheckoutPaymentRequest.builder()
+                .price(BigDecimal.valueOf(100))
+                .paidPrice(BigDecimal.valueOf(100))
+                .walletPrice(BigDecimal.ZERO)
+                .installment(1)
+                .currency(Currency.TRY)
+                .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
+                .paymentGroup(PaymentGroup.LISTING_OR_SUBSCRIPTION)
+                .paymentPhase(PaymentPhase.AUTH)
+                .callbackUrl("https://www.your-website.com/tokenpay-checkout-callback")
+                .items(items)
+                .buyerId(1L)
+                .build();
+
+        InitCheckoutPaymentResponse response = tokenPay.payment().initCheckoutPayment(request);
+        assertNotNull(response);
+    }
+
+    @Test
+    void retrieve_checkout_payment() {
+        String token = "fe4b0c2d-3c48-4553-9429-695d204bd7c1";
+
+        PaymentResponse response = tokenPay.payment().retrieveCheckoutPayment(token);
+        assertNotNull(response);
+    }
+
+    @Test
     void approve_payment_transactions() {
         ApprovePaymentTransactionsRequest request = ApprovePaymentTransactionsRequest.builder()
                 .isTransactional(true)
