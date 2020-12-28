@@ -32,6 +32,8 @@ public class InitCheckoutPaymentRequest implements Request {
     @Builder.Default
     protected PaymentPhase paymentPhase = PaymentPhase.AUTH;
 
+    protected String cardUserKey;
+
     protected Long buyerId;
     protected List<PaymentItem> items;
 }

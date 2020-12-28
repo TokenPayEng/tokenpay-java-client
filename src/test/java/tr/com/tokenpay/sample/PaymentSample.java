@@ -321,6 +321,7 @@ public class PaymentSample {
                 .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
                 .paymentGroup(PaymentGroup.LISTING_OR_SUBSCRIPTION)
                 .paymentPhase(PaymentPhase.AUTH)
+                .cardUserKey("eee24372-1735-4bc1-a534-023f1e02a03e")
                 .callbackUrl("https://www.your-website.com/tokenpay-checkout-callback")
                 .items(items)
                 .buyerId(1L)
