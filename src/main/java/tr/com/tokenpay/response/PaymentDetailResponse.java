@@ -1,6 +1,7 @@
 package tr.com.tokenpay.response;
 
 import lombok.Data;
+import tr.com.tokenpay.model.ConnectorType;
 import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentStatus;
 import tr.com.tokenpay.model.PaymentType;
@@ -23,6 +24,7 @@ public class PaymentDetailResponse {
     private BigDecimal paidPrice;
     private BigDecimal walletPrice;
     private PaymentType paymentType;
+    private ConnectorType connectorType;
     private Currency currency;
     private PaymentStatus paymentStatus;
     private String conversationId;

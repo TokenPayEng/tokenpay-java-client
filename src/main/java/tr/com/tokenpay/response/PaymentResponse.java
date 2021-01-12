@@ -23,6 +23,7 @@ public class PaymentResponse {
     private PaymentType paymentType;
     private PaymentGroup paymentGroup;
     private PaymentStatus paymentStatus;
+    private ConnectorType connectorType;
     private PaymentPhase paymentPhase;
     private Boolean isThreeDS;
     private BigDecimal merchantCommissionRate;

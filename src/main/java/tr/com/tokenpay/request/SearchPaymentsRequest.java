@@ -2,6 +2,7 @@ package tr.com.tokenpay.request;
 
 import lombok.Builder;
 import lombok.Data;
+import tr.com.tokenpay.model.ConnectorType;
 import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentStatus;
 import tr.com.tokenpay.request.common.Request;
@@ -25,6 +26,7 @@ public class SearchPaymentsRequest implements Request {
     private Set<Long> subMerchantIds;
     private Set<String> itemExternalIds;
     private PaymentStatus paymentStatus;
+    private ConnectorType connectorType;
 
     private Currency currency;
     private String binNumber;
