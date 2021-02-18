@@ -4,6 +4,7 @@ import tr.com.tokenpay.net.HttpClient;
 import tr.com.tokenpay.request.*;
 import tr.com.tokenpay.request.common.RequestOptions;
 import tr.com.tokenpay.request.common.RequestQueryParamsBuilder;
+import tr.com.tokenpay.response.BuyerListResponse;
 import tr.com.tokenpay.response.BuyerResponse;
 import tr.com.tokenpay.response.SubMerchantListResponse;
 import tr.com.tokenpay.response.SubMerchantResponse;
@@ -52,5 +53,11 @@ public class OnboardingAdapter extends BaseAdapter {
     public BuyerResponse retrieveBuyer(Long id) {
         String path = "/onboarding/v1/buyers/" + id;
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), BuyerResponse.class);
+    }
+
+    public BuyerListResponse searchBuyers(SearchBuyersRequest searchBuyersRequest) {
+        String query = RequestQueryParamsBuilder.buildQueryParam(searchBuyersRequest);
+        String path = "/onboarding/v1/buyers" + query;
+        return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), BuyerListResponse.class);
     }
 }

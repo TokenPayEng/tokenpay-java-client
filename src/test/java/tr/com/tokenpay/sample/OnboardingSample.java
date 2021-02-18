@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import tr.com.tokenpay.TokenPay;
 import tr.com.tokenpay.model.SubMerchantType;
 import tr.com.tokenpay.request.*;
+import tr.com.tokenpay.response.BuyerListResponse;
 import tr.com.tokenpay.response.BuyerResponse;
 import tr.com.tokenpay.response.SubMerchantListResponse;
 import tr.com.tokenpay.response.SubMerchantResponse;
@@ -15,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class OnboardingSample {
 
-    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "https://api-gateway.tokenpay.com.tr");
+    private final TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
 
     @Test
     void create_sub_merchant() {
@@ -157,5 +158,16 @@ public class OnboardingSample {
 
         BuyerResponse response = tokenPay.onboarding().retrieveBuyer(buyerId);
         assertEquals(buyerId, response.getId());
+    }
+
+    @Test
+    void search_buyers() {
+        SearchBuyersRequest request = SearchBuyersRequest.builder()
+                .name("Zeytinyağı Üretim")
+                .build();
+
+
+        BuyerListResponse response = tokenPay.onboarding().searchBuyers(request);
+        assertNotNull(response);
     }
 }
