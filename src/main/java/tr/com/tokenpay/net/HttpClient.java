@@ -1,8 +1,6 @@
 package tr.com.tokenpay.net;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
+import com.google.gson.*;
 import tr.com.tokenpay.exception.TokenPayException;
 import tr.com.tokenpay.response.common.ErrorResponse;
 import tr.com.tokenpay.response.common.Response;
@@ -13,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class HttpClient {
@@ -48,8 +47,8 @@ public class HttpClient {
         try {
             String body = gson.toJson(request);
             InputStream content = request == null ? null : new ByteArrayInputStream(body.getBytes(DEFAULT_CHARSET));
-            String responseBody = send(url, httpMethod, content, headers);
-            return handleResponse(responseType, responseBody);
+            HttpResponse httpResponse = send(url, httpMethod, content, headers);
+            return handleResponse(responseType, httpResponse);
         } catch (TokenPayException e) {
             throw e;
         } catch (Exception e) {
@@ -57,20 +56,27 @@ public class HttpClient {
         }
     }
 
-    private static <T> T handleResponse(Class<T> responseType, String responseBody) {
-        Response response = gson.fromJson(responseBody, Response.class);
-        if (response.getErrors() != null) {
-            ErrorResponse errors = response.getErrors();
-            throw new TokenPayException(errors.getErrorCode(), errors.getErrorDescription(), errors.getErrorGroup());
+    private static <T> T handleResponse(Class<T> responseType, HttpResponse httpResponse) {
+        Response response = gson.fromJson(httpResponse.getBody(), Response.class);
+
+        if (httpResponse.getStatusCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
+            if (response != null && response.getErrors() != null) {
+                ErrorResponse errors = response.getErrors();
+                throw new TokenPayException(errors.getErrorCode(), errors.getErrorDescription(), errors.getErrorGroup());
+            }
+            throw new TokenPayException("1", "Unknown response", "Unknown");
         }
+
         if (responseType == Void.class) {
             return null;
+        } else if (response == null) {
+            throw new TokenPayException("1", "Empty response", "Unknown");
         }
 
         return gson.fromJson(response.getData(), responseType);
     }
 
-    private static String send(String url, HttpMethod httpMethod, InputStream content, Map<String, String> headers) throws IOException {
+    private static HttpResponse send(String url, HttpMethod httpMethod, InputStream content, Map<String, String> headers) throws IOException {
         URLConnection raw;
         HttpURLConnection conn = null;
         try {
@@ -88,7 +94,9 @@ public class HttpClient {
                 prepareRequestBody(httpMethod, content, conn);
             }
 
-            return new String(body(conn), StandardCharsets.UTF_8);
+            final int responseCode = conn.getResponseCode();
+            final String responseBody = new String(body(conn), StandardCharsets.UTF_8);
+            return new HttpResponse(responseCode, responseBody);
         } finally {
             if (conn != null) {
                 conn.disconnect();
@@ -155,7 +163,29 @@ public class HttpClient {
 
     private static Gson buildGson() {
         return new GsonBuilder()
+                .setPrettyPrinting()
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString()))
+                .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (json, typeOfT, context) -> new JsonPrimitive(json.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                 .create();
     }
 }
+
+class HttpResponse {
+
+    int statusCode;
+    String body;
+
+    public HttpResponse(int statusCode, String body) {
+        this.statusCode = statusCode;
+        this.body = body;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public String getBody() {
+        return body;
+    }
+}
+

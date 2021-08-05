@@ -1,12 +1,14 @@
 package tr.com.tokenpay.request.common;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import tr.com.tokenpay.exception.TokenPayException;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public final class HashGenerator {
 
@@ -19,7 +21,7 @@ public final class HashGenerator {
             String decodedUrl = URLDecoder.decode(baseUrl + path, StandardCharsets.UTF_8.toString());
 
             if (request != null) {
-                Gson gson = new Gson();
+                Gson gson = buildGson();
                 String requestBody = gson.toJson(request);
                 hashData = decodedUrl + apiKey + secretKey + randomString + requestBody;
             } else {
@@ -30,5 +32,13 @@ public final class HashGenerator {
         } catch (Exception e) {
             throw new TokenPayException(e);
         }
+    }
+
+    private static Gson buildGson() {
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString()))
+                .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (json, typeOfT, context) -> new JsonPrimitive(json.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+                .create();
     }
 }
