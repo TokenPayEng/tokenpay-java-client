@@ -36,7 +36,6 @@ public final class HashGenerator {
 
     private static Gson buildGson() {
         return new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString()))
                 .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (json, typeOfT, context) -> new JsonPrimitive(json.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                 .create();
