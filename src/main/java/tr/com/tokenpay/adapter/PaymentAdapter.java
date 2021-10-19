@@ -41,9 +41,9 @@ public class PaymentAdapter extends BaseAdapter {
                 disapprovePaymentTransactionsRequest, PaymentTransactionApprovalListResponse.class);
     }
 
-    public PaymentTransactionResponse updatePaymentTransaction(Long paymentTransactionId, UpdatePaymentTransactionsRequest updatePaymentTransactionsRequest) {
+    public PaymentTransactionResponse updatePaymentTransaction(Long paymentTransactionId, UpdatePaymentTransactionRequest updatePaymentTransactionRequest) {
         String path = "/payment/v1/payment-transactions/" + paymentTransactionId;
-        return HttpClient.put(requestOptions.getBaseUrl() + path, createHeaders(updatePaymentTransactionsRequest, path, requestOptions), updatePaymentTransactionsRequest, PaymentTransactionResponse.class);
+        return HttpClient.put(requestOptions.getBaseUrl() + path, createHeaders(updatePaymentTransactionRequest, path, requestOptions), updatePaymentTransactionRequest, PaymentTransactionResponse.class);
     }
 
     public InitThreeDSPaymentResponse init3DSPayment(InitThreeDSPaymentRequest initThreeDSPaymentRequest) {

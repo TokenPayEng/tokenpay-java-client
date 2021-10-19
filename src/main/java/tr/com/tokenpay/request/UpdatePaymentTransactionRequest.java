@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @Builder
-public class UpdatePaymentTransactionsRequest implements Request {
+public class UpdatePaymentTransactionRequest implements Request {
 
     private Long subMerchantId;
     private BigDecimal subMerchantPrice;
