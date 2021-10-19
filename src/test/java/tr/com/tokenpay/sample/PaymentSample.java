@@ -670,4 +670,16 @@ public class PaymentSample {
         assertEquals(paymentId, response.getId());
         assertEquals(PaymentPhase.POST_AUTH, response.getPaymentPhase());
     }
+
+    @Test
+    void update_payment_transaction() {
+        long paymentTransactionId = 100L;
+        UpdatePaymentTransactionsRequest request = UpdatePaymentTransactionsRequest.builder()
+                .subMerchantId(2L)
+                .subMerchantPrice(BigDecimal.valueOf(10))
+                .build();
+
+        PaymentTransactionResponse response = tokenPay.payment().updatePaymentTransaction(paymentTransactionId, request);
+        assertEquals(response.getId(), paymentTransactionId);
+    }
 }
