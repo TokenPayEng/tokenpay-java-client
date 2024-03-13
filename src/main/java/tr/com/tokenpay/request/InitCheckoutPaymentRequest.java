@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentGroup;
 import tr.com.tokenpay.model.PaymentPhase;
+import tr.com.tokenpay.model.PaymentType;
 import tr.com.tokenpay.request.common.Request;
 import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
