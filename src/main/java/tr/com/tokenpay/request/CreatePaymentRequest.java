@@ -31,8 +31,8 @@ public class CreatePaymentRequest implements Request {
 
     @Builder.Default
     protected PaymentPhase paymentPhase = PaymentPhase.AUTH;
-    private Integer paymentOrder;
-    private PaymentType paymentType;
+    protected Integer paymentOrder;
+    protected PaymentType paymentType;
 
     protected Long buyerId;
     protected Card card;
