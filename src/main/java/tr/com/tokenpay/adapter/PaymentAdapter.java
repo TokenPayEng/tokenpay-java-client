@@ -139,7 +139,7 @@ public class PaymentAdapter extends BaseAdapter {
                 postAuthPaymentRequest, PaymentResponse.class);
     }
     public PostAuthPaymentResponse multiPostAuthPayment(PostAuthPaymentRequest postAuthPaymentRequest,String conversationId) {
-        String path = "/payment/v1/card-payments/" + conversationId + "/multi-post-auth";
+        String path = "/payment/v1/card-payments/" + conversationId + "/multi_post-auth";
         return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(postAuthPaymentRequest, path, requestOptions),
                 postAuthPaymentRequest, PostAuthPaymentResponse.class);
     }
