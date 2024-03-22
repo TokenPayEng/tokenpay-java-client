@@ -17,4 +17,5 @@ public class CreateLinkRequest implements Request {
     private Integer stock;
     private LocalDateTime expireDate;
     private String enabledInstallments;
+    private String conversationId;
 }

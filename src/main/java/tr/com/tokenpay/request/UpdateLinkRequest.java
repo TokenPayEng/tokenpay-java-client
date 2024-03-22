@@ -19,4 +19,5 @@ public class UpdateLinkRequest implements Request {
     private Integer stock;
     private LocalDateTime expireDate;
     private String enabledInstallments;
+    private String conversationId;
 }
