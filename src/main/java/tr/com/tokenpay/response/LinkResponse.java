@@ -5,6 +5,7 @@ import tr.com.tokenpay.model.Status;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class LinkResponse {
@@ -21,4 +22,5 @@ public class LinkResponse {
     private String qrCodeUrl;
     private String enabledInstallments;
     private LocalDateTime expireDate;
+    private List<Long> paymentIdList;
 }
