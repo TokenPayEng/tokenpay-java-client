@@ -143,4 +143,9 @@ public class PaymentAdapter extends BaseAdapter {
         return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(postAuthPaymentRequest, path, requestOptions),
                 postAuthPaymentRequest, PostAuthPaymentResponse.class);
     }
+
+    public PaymentTransactionReorganizeResponse reorganizePaymentTransaction(PaymentTransactionReorganizeRequest paymentTransactionReorganizeRequest) {
+        String path = "/payment/v1/payment-transactions/reorganize";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(paymentTransactionReorganizeRequest, path, requestOptions), paymentTransactionReorganizeRequest, PaymentTransactionReorganizeResponse.class);
+    }
 }
