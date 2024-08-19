@@ -6,6 +6,7 @@ import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentStatus;
 import tr.com.tokenpay.model.PaymentType;
 import tr.com.tokenpay.response.dto.PaymentCard;
+import tr.com.tokenpay.response.dto.PaymentCommissionDto;
 import tr.com.tokenpay.response.dto.PaymentRefund;
 import tr.com.tokenpay.response.dto.PaymentTransactionDetail;
 
@@ -31,4 +32,5 @@ public class PaymentDetailResponse {
     private PaymentCard paymentCard;
     private List<PaymentRefund> paymentRefunds;
     private List<PaymentTransactionDetail> paymentTransactions;
+    private PaymentCommissionDto paymentCommission;
 }
