@@ -148,4 +148,14 @@ public class PaymentAdapter extends BaseAdapter {
         String path = "/payment/v1/payment-transactions/reorganize";
         return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(paymentTransactionReorganizeRequest, path, requestOptions), paymentTransactionReorganizeRequest, PaymentTransactionReorganizeResponse.class);
     }
+
+    public CreditPaymentResponse initCreditPayment(CreateCreditPaymentRequest createCreditPaymentRequest) {
+        String path = "/payment/v1/credit-payments/init";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(createCreditPaymentRequest, path, requestOptions), createCreditPaymentRequest, CreditPaymentResponse.class);
+    }
+
+    public CreditPreviewResponse previewCreditPayment(CreditPreviewRequest creditPreviewRequest) {
+        String path = "/payment/v1/credit-payments/preview";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(creditPreviewRequest, path, requestOptions), creditPreviewRequest, CreditPreviewResponse.class);
+    }
 }

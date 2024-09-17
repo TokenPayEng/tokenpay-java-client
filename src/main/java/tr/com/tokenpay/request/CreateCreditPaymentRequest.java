@@ -16,7 +16,7 @@ import java.util.List;
 
 @Data
 @SuperBuilder
-public class InitCheckoutPaymentRequest implements Request {
+public class CreateCreditPaymentRequest implements Request {
 
     protected BigDecimal price;
     protected BigDecimal paidPrice;
@@ -24,18 +24,21 @@ public class InitCheckoutPaymentRequest implements Request {
     @Builder.Default
     protected BigDecimal walletPrice = BigDecimal.ZERO;
 
+    protected Integer installment;
     protected Currency currency;
     protected PaymentGroup paymentGroup;
     protected String conversationId;
-    protected Integer installment;
-    protected String callbackUrl;
 
     @Builder.Default
     protected PaymentPhase paymentPhase = PaymentPhase.AUTH;
-
-    protected String cardUserKey;
+    protected Integer paymentOrder;
+    protected PaymentType paymentType;
 
     protected Long buyerId;
+    protected Card card;
+    protected String posAlias;
     protected List<PaymentItem> items;
+
+    private String productType;
     private String merchantBranchName;
 }

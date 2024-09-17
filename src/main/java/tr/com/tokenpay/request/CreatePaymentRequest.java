@@ -38,4 +38,7 @@ public class CreatePaymentRequest implements Request {
     protected Card card;
     protected String posAlias;
     protected List<PaymentItem> items;
+
+    private String merchantBranchName;
+    private Long creditorId;
 }

@@ -21,4 +21,5 @@ public class CreateLinkRequest implements Request {
     private String enabledInstallments;
     private String conversationId;
     private List<PaymentItem> items;
+    private String merchantBranchName;
 }
