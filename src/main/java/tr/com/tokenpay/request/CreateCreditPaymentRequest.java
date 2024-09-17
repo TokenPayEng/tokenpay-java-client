@@ -41,4 +41,6 @@ public class CreateCreditPaymentRequest implements Request {
 
     private String productType;
     private String merchantBranchName;
+    private String callbackUrl;
+    private Long creditorId;
 }
