@@ -11,4 +11,5 @@ public class ReorganizeItemRequest {
     private Long paymentTransactionId;
     private BigDecimal price;
     private Long subMerchantId;
+    private String externalId;
 }
