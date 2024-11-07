@@ -60,9 +60,9 @@ Let's quickly review an example where we implement a credit card payment scenari
 ```java
 TokenPay tokenPay = new TokenPay("api-key", "secret-key", "http://localhost:8000");
 
-List<CreatePaymentItemDto> items = new ArrayList<>();
+List<PaymentItem> items = new ArrayList<>();
 
-items.add(CreatePaymentItemDto.builder()
+items.add(PaymentItem.builder()
         .name("item 1")
         .externalId("sfdsdf")
         .price(BigDecimal.valueOf(30))
@@ -70,7 +70,7 @@ items.add(CreatePaymentItemDto.builder()
         .subMerchantPrice(BigDecimal.valueOf(27))
         .build());
 
-items.add(CreatePaymentItemDto.builder()
+items.add(PaymentItem.builder()
         .name("item 2")
         .externalId("cvbxcvb")
         .price(BigDecimal.valueOf(50))
@@ -78,7 +78,7 @@ items.add(CreatePaymentItemDto.builder()
         .subMerchantPrice(BigDecimal.valueOf(42))
         .build());
 
-items.add(CreatePaymentItemDto.builder()
+items.add(PaymentItem.builder()
         .name("item 3")
         .externalId("vmvcx")
         .price(BigDecimal.valueOf(20))
@@ -91,11 +91,11 @@ CreatePaymentRequest request = CreatePaymentRequest.builder()
         .paidPrice(BigDecimal.valueOf(100))
         .walletPrice(BigDecimal.ZERO)
         .installment(1)
-        .currency(CurrencyCode.TRY)
+        .currency(Currency.TRY)
         .conversationId("asdjasdjasdfjhasd")
         .paymentGroup(PaymentGroup.PRODUCT)
         .paymentPhase(PaymentPhase.AUTH)
-        .card(CardDto.builder()
+        .card(Card.builder()
                 .cardHolderName("Pharmacy User")
                 .cardNumber("5406670000000009")
                 .expireYear("2035")
