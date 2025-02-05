@@ -65,7 +65,7 @@ public class PaymentAdapter extends BaseAdapter {
     }
 
     public PaymentResponse retrieveCheckoutPayment(String token) {
-        String path = "/payment/v1/checkout-payments?token=" + token;
+        String path = "/payment/v1/checkout-payments/" + token;
         return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), PaymentResponse.class);
     }
 
