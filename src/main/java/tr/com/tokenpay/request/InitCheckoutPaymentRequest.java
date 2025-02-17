@@ -38,4 +38,7 @@ public class InitCheckoutPaymentRequest implements Request {
     protected Long buyerId;
     protected List<PaymentItem> items;
     private String merchantBranchName;
+    private String buyerName;
+    private String domainName;
+    private Integer buyerType;
 }
