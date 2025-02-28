@@ -7,6 +7,7 @@ import tr.com.tokenpay.model.Currency;
 import tr.com.tokenpay.model.PaymentGroup;
 import tr.com.tokenpay.model.PaymentPhase;
 import tr.com.tokenpay.model.PaymentType;
+import tr.com.tokenpay.model.PosBlockageResolveType;
 import tr.com.tokenpay.request.common.Request;
 import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
@@ -40,5 +41,6 @@ public class CreatePaymentRequest implements Request {
     protected List<PaymentItem> items;
 
     private String merchantBranchName;
+    private PosBlockageResolveType blockageResolveType;
     private Long creditorId;
 }
