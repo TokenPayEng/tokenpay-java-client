@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class Maturity {
-    private Integer instalment;
-    private BigDecimal maturityRate;
+    private Integer installmentNumber;
+    private BigDecimal itemMaturityRate;
 }

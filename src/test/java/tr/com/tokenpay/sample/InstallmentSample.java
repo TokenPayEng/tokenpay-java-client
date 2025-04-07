@@ -5,6 +5,7 @@ import tr.com.tokenpay.TokenPay;
 import tr.com.tokenpay.model.CardAssociation;
 import tr.com.tokenpay.model.CardType;
 import tr.com.tokenpay.model.Currency;
+import tr.com.tokenpay.request.SearchInstallmentsInDetailRequest;
 import tr.com.tokenpay.request.SearchInstallmentsRequest;
 import tr.com.tokenpay.response.BinNumberResponse;
 import tr.com.tokenpay.response.InstallmentListResponse;
@@ -41,6 +42,18 @@ public class InstallmentSample {
                 .build();
 
         InstallmentListResponse response = tokenPay.installment().searchInstallments(request);
+        assertTrue(response.getItems().size() > 0);
+    }
+
+    @Test
+    void search_installments_in_detail() {
+        SearchInstallmentsInDetailRequest request = SearchInstallmentsInDetailRequest.builder()
+                .binNumber("525864")
+                .price(BigDecimal.valueOf(100L))
+                .currency(Currency.TRY)
+                .build();
+
+        InstallmentListResponse response = tokenPay.installment().searchInstallmentsInDetail(request);
         assertTrue(response.getItems().size() > 0);
     }
 }
