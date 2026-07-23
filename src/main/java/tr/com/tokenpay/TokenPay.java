@@ -17,6 +17,21 @@ public class TokenPay {
         this(apiKey, secretKey, BASE_URL);
     }
 
+    public TokenPay(String apiKey, String secretKey, String baseUrl,String xRealIp) {
+        RequestOptions requestOptions = RequestOptions.builder()
+                .apiKey(apiKey)
+                .secretKey(secretKey)
+                .baseUrl(baseUrl)
+                .xRealIp(xRealIp)
+                .build();
+
+        this.payment = new PaymentAdapter(requestOptions);
+        this.settlementReportingAdapter = new SettlementReportingAdapter(requestOptions);
+        this.installmentAdapter = new InstallmentAdapter(requestOptions);
+        this.onboardingAdapter = new OnboardingAdapter(requestOptions);
+        this.linkAdapter = new LinkAdapter(requestOptions);
+    }
+
     public TokenPay(String apiKey, String secretKey, String baseUrl) {
         RequestOptions requestOptions = RequestOptions.builder()
                 .apiKey(apiKey)

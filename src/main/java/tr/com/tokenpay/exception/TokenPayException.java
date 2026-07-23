@@ -1,7 +1,9 @@
 package tr.com.tokenpay.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class TokenPayException extends RuntimeException {
 

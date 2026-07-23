@@ -7,6 +7,7 @@ import tr.com.tokenpay.request.*;
 import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
 import tr.com.tokenpay.response.*;
+import tr.com.tokenpay.response.wallet.InitResponse;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -681,5 +682,52 @@ public class PaymentSample {
 
         PaymentTransactionResponse response = tokenPay.payment().updatePaymentTransaction(paymentTransactionId, request);
         assertEquals(response.getId(), paymentTransactionId);
+    }
+
+    @Test
+    void init_wallet_payment()
+    {
+        final List<PaymentItem> items = new ArrayList<>();
+
+        items.add(PaymentItem.builder()
+                .name("item 1")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(30))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 2")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(50))
+                .build());
+
+        items.add(PaymentItem.builder()
+                .name("item 3")
+                .externalId(UUID.randomUUID().toString())
+                .price(BigDecimal.valueOf(20))
+                .build());
+
+        final InitPaymentWithCallBackRequest request = InitPaymentWithCallBackRequest.builder()
+                .price(BigDecimal.valueOf(100))
+                .paidPrice(BigDecimal.valueOf(100))
+                .walletPrice(BigDecimal.ZERO)
+                .installment(1)
+                .currency(Currency.TRY)
+                .conversationId("456d1297-908e-4bd6-a13b-4be31a6e47d5")
+                .callbackUrl("https://www.your-website.com/tokenpay-walletpayment-callback")
+                .paymentGroup(PaymentGroup.LISTING_OR_SUBSCRIPTION)
+                .paymentPhase(PaymentPhase.AUTH)
+                .card(Card.builder()
+                        .cardHolderName("Haluk Demir")
+                        .cardNumber("5258640000000001")
+                        .expireYear("2044")
+                        .expireMonth("07")
+                        .cvc("000")
+                        .build())
+                .items(items)
+                .build();
+
+        final InitResponse initResponse = tokenPay.payment().initWalletPayment(request);
+        assertNotNull(initResponse);
     }
 }

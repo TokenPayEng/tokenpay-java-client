@@ -16,6 +16,7 @@ public class PaymentTransaction {
     private String name;
     private BigDecimal price;
     private BigDecimal paidPrice;
+    private BigDecimal pointPrice;
     private BigDecimal walletPrice;
     private BigDecimal merchantCommissionRate;
     private BigDecimal merchantCommissionRateAmount;

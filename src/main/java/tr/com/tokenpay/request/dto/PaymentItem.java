@@ -14,4 +14,5 @@ public class PaymentItem {
     private String externalId;
     private Long subMerchantId;
     private BigDecimal subMerchantPrice;
+    private String productItemCode;
 }

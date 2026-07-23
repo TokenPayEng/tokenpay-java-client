@@ -23,6 +23,7 @@ public class PaymentDetailResponse {
     private String orderId;
     private BigDecimal price;
     private BigDecimal paidPrice;
+    private BigDecimal pointPrice;
     private BigDecimal walletPrice;
     private PaymentType paymentType;
     private ConnectorType connectorType;
@@ -33,4 +34,5 @@ public class PaymentDetailResponse {
     private List<PaymentRefund> paymentRefunds;
     private List<PaymentTransactionDetail> paymentTransactions;
     private PaymentCommissionDto paymentCommission;
+    private String cardBrand;
 }

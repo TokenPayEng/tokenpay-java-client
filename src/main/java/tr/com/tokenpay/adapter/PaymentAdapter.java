@@ -4,7 +4,11 @@ import tr.com.tokenpay.net.HttpClient;
 import tr.com.tokenpay.request.*;
 import tr.com.tokenpay.request.common.RequestOptions;
 import tr.com.tokenpay.request.common.RequestQueryParamsBuilder;
+import tr.com.tokenpay.request.moneytransfer.MoneyTransferCodeRequest;
+import tr.com.tokenpay.request.moneytransfer.MoneyTransferUpdateRequest;
 import tr.com.tokenpay.response.*;
+import tr.com.tokenpay.response.moneytransfer.MoneyTransferRequestResult;
+import tr.com.tokenpay.response.wallet.InitResponse;
 
 public class PaymentAdapter extends BaseAdapter {
 
@@ -63,6 +67,39 @@ public class PaymentAdapter extends BaseAdapter {
         return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(initCheckoutPaymentRequest, path, requestOptions),
                 initCheckoutPaymentRequest, InitCheckoutPaymentResponse.class);
     }
+
+    public PointInquiryResponse retrievePointInquiry(PointInquiryRequest pointInquiryRequest) {
+        String path = "/payment/v1/card-payments/point";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(pointInquiryRequest, path, requestOptions),
+                pointInquiryRequest, PointInquiryResponse.class);
+    }
+
+    public InitResponse initWalletPayment(InitPaymentWithCallBackRequest createPaymentRequest)
+    {
+        String path = "/payment/v1/wallet/init";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(createPaymentRequest, path, requestOptions),
+                createPaymentRequest, InitResponse.class);
+    }
+
+    public String inquireWalletPayment(String orderId)
+    {
+        String path = "/payment/v1/wallet/status/"+orderId;
+        return HttpClient.get(requestOptions.getBaseUrl() + path, createHeaders(path, requestOptions), String.class);
+    }
+
+
+    public MoneyTransferRequestResult getPaymentCode(MoneyTransferCodeRequest moneyTransferCodeRequest) {
+        String path = "/payment/v1/money-transfers/code";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(moneyTransferCodeRequest, path, requestOptions),
+                moneyTransferCodeRequest, MoneyTransferRequestResult.class);
+    }
+
+    public MoneyTransferRequestResult updateMoneyTransferPayment(MoneyTransferUpdateRequest moneyTransferUpdateRequest) {
+        String path = "/payment/v1/money-transfers/update";
+        return HttpClient.post(requestOptions.getBaseUrl() + path, createHeaders(moneyTransferUpdateRequest, path, requestOptions),
+                moneyTransferUpdateRequest, MoneyTransferRequestResult.class);
+    }
+
 
     public PaymentResponse retrieveCheckoutPayment(String token) {
         String path = "/payment/v1/checkout-payments/" + token;
