@@ -15,4 +15,5 @@ public class PaymentItem {
     private Long subMerchantId;
     private BigDecimal subMerchantPrice;
     private String productItemCode;
+    private GiftCardItem giftCard;
 }

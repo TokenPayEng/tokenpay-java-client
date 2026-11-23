@@ -16,6 +16,7 @@ public class PaymentResponse {
     private BigDecimal price;
     private BigDecimal paidPrice;
     private BigDecimal walletPrice;
+    private BigDecimal giftCardPrice;
     private Currency currency;
     private Long buyerId;
     private Integer installment;

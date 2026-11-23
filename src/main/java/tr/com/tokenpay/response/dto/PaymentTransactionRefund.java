@@ -3,6 +3,7 @@ package tr.com.tokenpay.response.dto;
 import lombok.Builder;
 import lombok.Data;
 import tr.com.tokenpay.model.PaymentType;
+import tr.com.tokenpay.model.GiftCardRefundStatus;
 import tr.com.tokenpay.model.RefundDestinationType;
 import tr.com.tokenpay.model.RefundStatus;
 
@@ -20,6 +21,8 @@ public class PaymentTransactionRefund {
     private BigDecimal refundPrice;
     private BigDecimal refundBankPrice;
     private BigDecimal refundWalletPrice;
+    private BigDecimal refundGiftCardPrice;
+    private GiftCardRefundStatus giftCardRefundStatus;
     private PaymentType paymentType;
     private String conversationId;
     private Boolean isAfterSettlement;

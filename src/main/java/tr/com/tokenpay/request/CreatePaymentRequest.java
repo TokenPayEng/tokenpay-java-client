@@ -21,6 +21,11 @@ public class CreatePaymentRequest implements Request {
     private BigDecimal pointPrice = BigDecimal.ZERO;
 
     @Builder.Default
+    private BigDecimal giftCardPrice = BigDecimal.ZERO;
+
+    private String giftCardUserId;
+
+    @Builder.Default
     protected BigDecimal walletPrice = BigDecimal.ZERO;
 
     protected Integer installment;

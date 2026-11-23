@@ -18,4 +18,5 @@ public class PointInquiryRequest implements Request
     @NonNull
     private Currency currency;
     private BigDecimal paidPrice;
+    private String cvc;
 }

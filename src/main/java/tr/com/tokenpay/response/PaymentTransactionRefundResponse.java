@@ -2,6 +2,7 @@ package tr.com.tokenpay.response;
 
 import lombok.Data;
 import tr.com.tokenpay.model.Currency;
+import tr.com.tokenpay.model.GiftCardRefundStatus;
 import tr.com.tokenpay.model.RefundDestinationType;
 import tr.com.tokenpay.model.RefundStatus;
 
@@ -19,6 +20,8 @@ public class PaymentTransactionRefundResponse {
     private BigDecimal refundPrice;
     private BigDecimal refundBankPrice;
     private BigDecimal refundWalletPrice;
+    private BigDecimal refundGiftCardPrice;
+    private GiftCardRefundStatus giftCardRefundStatus;
     private Currency currency;
     private Long paymentTransactionId;
     private Long paymentId;
