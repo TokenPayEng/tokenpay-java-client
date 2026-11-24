@@ -1,6 +1,7 @@
 package tr.com.tokenpay.net;
 
 import com.google.gson.*;
+import tr.com.tokenpay.exception.InstallmentApiBusinessException;
 import tr.com.tokenpay.exception.TokenPayException;
 import tr.com.tokenpay.response.common.ErrorResponse;
 import tr.com.tokenpay.response.common.Response;
@@ -10,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -62,7 +64,7 @@ public class HttpClient {
         if (httpResponse.getStatusCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
             if (response != null && response.getErrors() != null) {
                 ErrorResponse errors = response.getErrors();
-                throw new TokenPayException(errors.getErrorCode(), errors.getErrorDescription(), errors.getErrorGroup());
+                throw createException(errors);
             }
             throw new TokenPayException("1", "Unknown response", "Unknown");
         }
@@ -74,6 +76,22 @@ public class HttpClient {
         }
 
         return gson.fromJson(response.getData(), responseType);
+    }
+
+    private static TokenPayException createException(ErrorResponse error) {
+        if (InstallmentApiBusinessException.PRODUCT_CATEGORY_NOT_FOUND.equals(error.getErrorCode())) {
+            return new InstallmentApiBusinessException(
+                    error.getErrorCode(),
+                    error.getErrorDescription(),
+                    error.getErrorGroup()
+            );
+        }
+
+        return new TokenPayException(
+                error.getErrorCode(),
+                error.getErrorDescription(),
+                error.getErrorGroup()
+        );
     }
 
     private static HttpResponse send(String url, HttpMethod httpMethod, InputStream content, Map<String, String> headers) throws IOException {
@@ -163,6 +181,8 @@ public class HttpClient {
 
     private static Gson buildGson() {
         return new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, typeOfT, context) -> LocalDate.parse(json.getAsString()))
+                .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (date, typeOfT, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE)))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) -> LocalDateTime.parse(json.getAsString()))
                 .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (json, typeOfT, context) -> new JsonPrimitive(json.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                 .create();
@@ -187,4 +207,3 @@ class HttpResponse {
         return body;
     }
 }
-

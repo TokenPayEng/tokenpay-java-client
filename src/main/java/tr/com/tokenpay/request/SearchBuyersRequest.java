@@ -21,8 +21,8 @@ public class SearchBuyersRequest implements Request {
     private String buyerExternalId;
 
     @Builder.Default
-    private Integer page;
+    private Integer page = 0;
 
     @Builder.Default
-    private Integer size;
+    private Integer size = 10;
 }

@@ -3,11 +3,7 @@ package tr.com.tokenpay.request;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
-import tr.com.tokenpay.model.Currency;
-import tr.com.tokenpay.model.PaymentGroup;
-import tr.com.tokenpay.model.PaymentPhase;
-import tr.com.tokenpay.model.PaymentType;
-import tr.com.tokenpay.model.PosBlockageResolveType;
+import tr.com.tokenpay.model.*;
 import tr.com.tokenpay.request.common.Request;
 import tr.com.tokenpay.request.dto.Card;
 import tr.com.tokenpay.request.dto.PaymentItem;
@@ -21,6 +17,13 @@ public class CreatePaymentRequest implements Request {
 
     protected BigDecimal price;
     protected BigDecimal paidPrice;
+    @Builder.Default
+    private BigDecimal pointPrice = BigDecimal.ZERO;
+
+    @Builder.Default
+    private BigDecimal giftCardPrice = BigDecimal.ZERO;
+
+    private String giftCardUserId;
 
     @Builder.Default
     protected BigDecimal walletPrice = BigDecimal.ZERO;
@@ -43,4 +46,5 @@ public class CreatePaymentRequest implements Request {
     private String merchantBranchName;
     private PosBlockageResolveType blockageResolveType;
     private Long creditorId;
+    private WalletIntegratorType walletIntegratorType;
 }

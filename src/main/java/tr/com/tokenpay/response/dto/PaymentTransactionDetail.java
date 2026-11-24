@@ -23,6 +23,7 @@ public class PaymentTransactionDetail {
     private LocalDateTime transactionStatusDate;
     private BigDecimal price;
     private BigDecimal paidPrice;
+    private BigDecimal pointPrice;
     private BigDecimal walletPrice;
     private BigDecimal merchantPayoutAmount;
     private Long subMerchantId;

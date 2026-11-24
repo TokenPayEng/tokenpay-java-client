@@ -1,13 +1,16 @@
 package tr.com.tokenpay.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class TokenPayException extends RuntimeException {
 
-    private final String GENERAL_ERROR_CODE = "0";
-    private final String GENERAL_ERROR_DESCRIPTION = "An error occurred.";
-    private final String GENERAL_ERROR_GROUP = "Unknown";
+    private static final String GENERAL_ERROR_CODE = "0";
+    private static final String GENERAL_ERROR_DESCRIPTION = "An error occurred.";
+    private static final String GENERAL_ERROR_GROUP = "Unknown";
+
     private final String errorCode;
     private final String errorDescription;
     private final String errorGroup;
